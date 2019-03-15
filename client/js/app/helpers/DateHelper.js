@@ -1,27 +1,79 @@
-class DateHelper {
+'use strict';
 
-	constructor() {
+System.register([], function (_export, _context) {
+    "use strict";
 
-		throw new Error('DateHelper não pode ser instanciado.');
-	}
+    var _createClass, DateHelper;
 
-	static dataParaTexto(data) {
+    function _toConsumableArray(arr) {
+        if (Array.isArray(arr)) {
+            for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+                arr2[i] = arr[i];
+            }
 
-		return `${
-			data.getDate() < 10 ? '0' + data.getDate() : data.getDate()
-		}/${
-			(data.getMonth()+1) < 10 ? '0' + (data.getMonth()+1) : (data.getMonth()+1)
-		}/${data.getFullYear()}`;
-	}
+            return arr2;
+        } else {
+            return Array.from(arr);
+        }
+    }
 
-	static textoParaData(texto) {
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
 
-		if (!/\d{4}-\d{2}-\d{2}/.test(texto)) 
-			throw new Error('Deve estar no formato aaaa-mm-dd.');
+    return {
+        setters: [],
+        execute: function () {
+            _createClass = function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
 
-		return new Date(...texto
-			.split('-')
-			.map((item, indice) => item - indice % 2)
-		);
-	}
-}
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            }();
+
+            _export('DateHelper', DateHelper = function () {
+                function DateHelper() {
+                    _classCallCheck(this, DateHelper);
+
+                    throw new Error('DateHelper não pode ser instanciado.');
+                }
+
+                _createClass(DateHelper, null, [{
+                    key: 'dataParaTexto',
+                    value: function dataParaTexto(data) {
+
+                        return (data.getDate() < 10 ? '0' + data.getDate() : data.getDate()) + '/' + (data.getMonth() + 1 < 10 ? '0' + (data.getMonth() + 1) : data.getMonth() + 1) + '/' + data.getFullYear();
+                    }
+                }, {
+                    key: 'textoParaData',
+                    value: function textoParaData(texto) {
+
+                        if (!/\d{4}-\d{2}-\d{2}/.test(texto)) throw new Error('Deve estar no formato aaaa-mm-dd.');
+
+                        return new (Function.prototype.bind.apply(Date, [null].concat(_toConsumableArray(texto.split('-').map(function (item, indice) {
+                            return item - indice % 2;
+                        })))))();
+                    }
+                }]);
+
+                return DateHelper;
+            }());
+
+            _export('DateHelper', DateHelper);
+        }
+    };
+});
+//# sourceMappingURL=DateHelper.js.map

@@ -8,23 +8,23 @@ var dateRetrasada = new Date();
 dateRetrasada.setDate(dataAtual.getDate() - 14);
 
 var negociacoes = [
-      { data : dataAtual, quantidade : 1, valor : 150},
-      { data : dataAtual, quantidade : 2, valor : 250},
-      { data : dataAtual, quantidade : 3, valor : 350},
-      { data : dataAnterior, quantidade : 1, valor : 450},
-      { data : dataAnterior, quantidade : 2, valor : 550},
-      { data : dataAnterior, quantidade : 3, valor : 650},
-      { data : dateRetrasada, quantidade : 1, valor : 750},
-      { data : dateRetrasada, quantidade : 2, valor : 950},
-      { data : dateRetrasada, quantidade : 3, valor : 950}
+      { _data : dataAtual, _quantidade : 1, _valor : 150},
+      { _data : dataAtual, _quantidade : 2, _valor : 250},
+      { _data : dataAtual, _quantidade : 3, _valor : 350},
+      { _data : dataAnterior, _quantidade : 1, _valor : 450},
+      { _data : dataAnterior, _quantidade : 2, _valor : 550},
+      { _data : dataAnterior, _quantidade : 3, _valor : 650},
+      { _data : dateRetrasada, _quantidade : 1, _valor : 750},
+      { _data : dateRetrasada, _quantidade : 2, _valor : 950},
+      { _data : dateRetrasada, _quantidade : 3, _valor : 950}
     ];
 
 
 api.listaSemana = function(req, res) {
     var negociacoesAtuais = negociacoes.filter(function(negociacao) {
-        return negociacao.data > dataAnterior;
+        return new Date(negociacao.data) > dataAnterior;
     });
-    res.json(negociacoesAtuais);
+    res.json(negociacoes);
 };
 
 api.listaAnterior = function(req, res) {
@@ -44,13 +44,11 @@ api.listaRetrasada = function(req, res) {
         return negociacao.data < dataAnterior;
     });
     res.json(negociacoesRtrasadas);
-    
 };
 
 api.cadastraNegociacao = function(req, res) {
 
-   console.log(req.body);
-   req.body.data = new Date(req.body.data.replace(/-/g,'/'));
+   req.body._data = req.body._data.replace(/-/g,'/').substring(0, 9);
    negociacoes.push(req.body);
    res.status(200).json("Negociação recebida");
 };
