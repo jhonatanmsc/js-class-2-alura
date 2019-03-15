@@ -26,7 +26,9 @@ System.register(['../services/ProxyFactory'], function (_export, _context) {
                 var proxy = ProxyFactory.create(model, props, function (model) {
                     return view.update(model);
                 });
+
                 view.update(model);
+
                 return proxy;
             });
 
